@@ -16,4 +16,6 @@ limitations under the License.
 <resources>
     <!-- strings that should not be translated -->
     <string name="app_name" translatable="false">ODK Counter</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="minus" translatable="false">-</string>
 </resources>
