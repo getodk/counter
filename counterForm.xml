@@ -1,0 +1,45 @@
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+  <h:head>
+    <h:title>Counter Form</h:title>
+    <model>
+      <instance>
+        <data id="build_Untitled-Form_1501753261">
+          <meta>
+            <instanceID/>
+          </meta>
+          <Counter1/>
+          <Counter2/>
+        </data>
+      </instance>
+      <itext>
+        <translation lang="English">
+          <text id="/data/Counter1:label">
+            <value>Counter 1</value>
+          </text>
+          <text id="/data/Counter1:hint">
+            <value>increment=false()</value>
+          </text>
+          <text id="/data/Counter2:label">
+            <value>Counter 2</value>
+          </text>
+          <text id="/data/Counter2:hint">
+            <value>increment=true()</value>
+          </text>
+        </translation>
+      </itext>
+      <bind nodeset="/data/meta/instanceID" type="string" readonly="true()" calculate="concat('uuid:', uuid())"/>
+      <bind nodeset="/data/Counter1" type="int"/>
+      <bind nodeset="/data/Counter2" type="int"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/data/Counter1" appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name='Counter Form', question_id='1', question_name='Counter 1')">
+      <label ref="jr:itext('/data/Counter1:label')"/>
+      <hint ref="jr:itext('/data/Counter1:hint')"/>
+    </input>
+    <input ref="/data/Counter2" appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name='Counter Form', question_id='2', question_name='Counter 2', increment=true())">
+      <label ref="jr:itext('/data/Counter2:label')"/>
+      <hint ref="jr:itext('/data/Counter2:hint')"/>
+    </input>
+  </h:body>
+</h:html>
