@@ -76,27 +76,33 @@ limitations under the License.
 
                 <Button
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/plus"
                     android:onClick="incrementValue"
                     android:textSize="40sp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:background="@drawable/button_border"/>
 
                 <Button
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/minus"
                     android:onClick="decrementValue"
                     android:textSize="40sp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:background="@drawable/button_border"/>
 
                 <ImageButton
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:onClick="resetValue"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:src="@drawable/ic_reset"
                     android:background="@drawable/button_border"/>
 
@@ -105,8 +111,10 @@ limitations under the License.
             <ImageButton
                 android:id="@+id/ok_button"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:src="@drawable/ic_done"
                 android:background="@drawable/button_border"
