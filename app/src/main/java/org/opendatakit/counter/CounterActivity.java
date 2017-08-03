@@ -26,6 +26,11 @@ import android.widget.TextView;
 public class CounterActivity extends AppCompatActivity {
 
     private static final String CURRENT_VALUE = "currentValue";
+    private static final String FORM_ID = "form_id";
+    private static final String FORM_NAME = "form_name";
+    private static final String QUESTION_ID = "question_id";
+    private static final String QUESTION_NAME = "question_name";
+    private static final String INCREMENT = "increment";
 
     private TextView formName;
     private TextView questionName;
@@ -42,10 +47,9 @@ public class CounterActivity extends AppCompatActivity {
         questionName = (TextView) findViewById(R.id.question_name);
         currentValue = (TextView) findViewById(R.id.current_value);
 
-
-        formName.setText("Bed Net Survey");
-        questionName.setText("Cluster Number");
-        currentValue.setText("126");
+        formName.setText(getIntent().getStringExtra(FORM_NAME));
+        questionName.setText(getIntent().getStringExtra(QUESTION_NAME));
+        currentValue.setText(getString(R.string.one));
 
         if (savedInstanceState != null) {
             currentValue.setText(savedInstanceState.getString(CURRENT_VALUE));
@@ -93,7 +97,7 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private boolean startAutomaticIncrementation() {
-        return  1 == getIntent().getIntExtra("increment", 0);
+        return getIntent().getBooleanExtra(INCREMENT, false);
     }
 
     public void resetValue(View view) {
