@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.opendatakit.counter.R;
@@ -39,10 +40,17 @@ public class CounterActivity extends AppCompatActivity {
 
     private TextView currentValueTv;
 
+    private Button plusButton;
+    private Button minusButton;
+
     private Handler handler;
 
     private String formId;
     private String questionId;
+
+    // https://github.com/opendatakit/collect/blob/master/collect_app/src/main/java/org/odk/collect/android/widgets/ExIntegerWidget.java#L68
+    private int maxValue = 999999999;
+    private int minValue = -99999999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,9 @@ public class CounterActivity extends AppCompatActivity {
         TextView formNameTv = (TextView) findViewById(R.id.form_name);
         TextView questionNameTv = (TextView) findViewById(R.id.question_name);
         currentValueTv = (TextView) findViewById(R.id.current_value);
+
+        plusButton = (Button) findViewById(R.id.plus_button);
+        minusButton = (Button) findViewById(R.id.minus_button);
 
         formNameTv.setText(getIntent().getStringExtra(FORM_NAME));
         questionNameTv.setText(getIntent().getStringExtra(QUESTION_NAME));
@@ -67,6 +78,8 @@ public class CounterActivity extends AppCompatActivity {
             currentValueTv.setText(getString(R.string.one));
         }
 
+        adjustTextSize(getCurrentValue());
+
         if (startAutomaticIncrementation()) {
             handler = new Handler();
             incrementAutomatically();
@@ -81,7 +94,7 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     public void returnValue(View view) {
-        int currentValue = getCurrentVal();
+        int currentValue = getCurrentValue();
         AnswerDao.saveAnswer(new Answer(formId + questionId, currentValue));
 
         Intent intent = new Intent();
@@ -91,22 +104,31 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     public void incrementValue(View view) {
-        currentValueTv.setText(String.valueOf(getCurrentVal() + 1));
+        int currentValue = getCurrentValue();
+        currentValueTv.setText(String.valueOf(currentValue + 1));
+        disableButtonIfNeeded(currentValue + 1);
+        adjustTextSize(currentValue + 1);
     }
 
     public void decrementValue(View view) {
-        currentValueTv.setText(String.valueOf(getCurrentVal() - 1));
+        int currentValue = getCurrentValue();
+        currentValueTv.setText(String.valueOf(currentValue - 1));
+        disableButtonIfNeeded(currentValue - 1);
+        adjustTextSize(currentValue - 1);
     }
 
-    private int getCurrentVal() {
+    private int getCurrentValue() {
         return Integer.parseInt(currentValueTv.getText().toString());
     }
 
     private void incrementAutomatically() {
         handler.postDelayed(new Runnable() {
             public void run() {
-                currentValueTv.setText(String.valueOf(getCurrentVal() + 1));
-                incrementAutomatically();
+                int currentValue = getCurrentValue();
+                currentValueTv.setText(String.valueOf(getCurrentValue() + 1));
+                if (currentValue + 1 < maxValue) {
+                    incrementAutomatically();
+                }
             }
         }, 500);
     }
@@ -117,5 +139,25 @@ public class CounterActivity extends AppCompatActivity {
 
     public void resetValue(View view) {
         currentValueTv.setText(getString(R.string.one));
+        adjustTextSize(1);
+    }
+
+    private void disableButtonIfNeeded(int currentValue) {
+        if (currentValue == maxValue) {
+            plusButton.setEnabled(false);
+        } else if (currentValue == minValue) {
+            minusButton.setEnabled(false);
+        } else {
+            plusButton.setEnabled(true);
+            minusButton.setEnabled(true);
+        }
+    }
+
+    private void adjustTextSize(int currentValue) {
+        if (currentValue > 99999 || currentValue < -9999) {
+            currentValueTv.setTextSize(50);
+        } else {
+            currentValueTv.setTextSize(110);
+        }
     }
 }
