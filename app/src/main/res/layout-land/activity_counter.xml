@@ -51,8 +51,7 @@ limitations under the License.
                 android:id="@+id/current_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="110sp" />
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
 
@@ -70,6 +69,7 @@ limitations under the License.
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/plus_button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -81,6 +81,7 @@ limitations under the License.
                     android:background="@drawable/button_border"/>
 
                 <Button
+                    android:id="@+id/minus_button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
