@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opendatakit.counter;
+package org.opendatakit.counter.activities;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -22,6 +22,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import org.opendatakit.counter.R;
+import org.opendatakit.counter.dao.AnswerDao;
+import org.opendatakit.counter.dto.Answer;
 
 public class CounterActivity extends AppCompatActivity {
 
@@ -31,28 +35,36 @@ public class CounterActivity extends AppCompatActivity {
     private static final String QUESTION_ID = "question_id";
     private static final String QUESTION_NAME = "question_name";
     private static final String INCREMENT = "increment";
+    private static final String VALUE = "value";
 
-    private TextView formName;
-    private TextView questionName;
-    private TextView currentValue;
+    private TextView currentValueTv;
 
     private Handler handler;
+
+    private String formId;
+    private String questionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_counter);
 
-        formName = (TextView) findViewById(R.id.form_name);
-        questionName = (TextView) findViewById(R.id.question_name);
-        currentValue = (TextView) findViewById(R.id.current_value);
+        TextView formNameTv = (TextView) findViewById(R.id.form_name);
+        TextView questionNameTv = (TextView) findViewById(R.id.question_name);
+        currentValueTv = (TextView) findViewById(R.id.current_value);
 
-        formName.setText(getIntent().getStringExtra(FORM_NAME));
-        questionName.setText(getIntent().getStringExtra(QUESTION_NAME));
-        currentValue.setText(getString(R.string.one));
+        formNameTv.setText(getIntent().getStringExtra(FORM_NAME));
+        questionNameTv.setText(getIntent().getStringExtra(QUESTION_NAME));
+
+        formId = getIntent().getStringExtra(FORM_ID);
+        questionId = getIntent().getStringExtra(QUESTION_ID);
 
         if (savedInstanceState != null) {
-            currentValue.setText(savedInstanceState.getString(CURRENT_VALUE));
+            currentValueTv.setText(savedInstanceState.getString(CURRENT_VALUE));
+        } else if (AnswerDao.getValue(formId + questionId) != null) {
+            currentValueTv.setText(String.valueOf(AnswerDao.getValue(formId + questionId)));
+        } else {
+            currentValueTv.setText(getString(R.string.one));
         }
 
         if (startAutomaticIncrementation()) {
@@ -63,34 +75,37 @@ public class CounterActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString(CURRENT_VALUE, currentValue.getText().toString());
+        savedInstanceState.putString(CURRENT_VALUE, currentValueTv.getText().toString());
 
         super.onSaveInstanceState(savedInstanceState);
     }
 
     public void returnValue(View view) {
+        int currentValue = getCurrentVal();
+        AnswerDao.saveAnswer(new Answer(formId + questionId, currentValue));
+
         Intent intent = new Intent();
-        intent.putExtra("value", getCurrentVal());
+        intent.putExtra(VALUE, currentValue);
         setResult(RESULT_OK, intent);
         finish();
     }
 
     public void incrementValue(View view) {
-        currentValue.setText(String.valueOf(getCurrentVal() + 1));
+        currentValueTv.setText(String.valueOf(getCurrentVal() + 1));
     }
 
     public void decrementValue(View view) {
-        currentValue.setText(String.valueOf(getCurrentVal() - 1));
+        currentValueTv.setText(String.valueOf(getCurrentVal() - 1));
     }
 
     private int getCurrentVal() {
-        return Integer.parseInt(currentValue.getText().toString());
+        return Integer.parseInt(currentValueTv.getText().toString());
     }
 
     private void incrementAutomatically() {
         handler.postDelayed(new Runnable() {
             public void run() {
-                currentValue.setText(String.valueOf(getCurrentVal() + 1));
+                currentValueTv.setText(String.valueOf(getCurrentVal() + 1));
                 incrementAutomatically();
             }
         }, 500);
@@ -101,6 +116,6 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     public void resetValue(View view) {
-        currentValue.setText("1");
+        currentValueTv.setText(getString(R.string.one));
     }
 }
