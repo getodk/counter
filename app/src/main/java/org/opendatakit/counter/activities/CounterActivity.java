@@ -29,6 +29,9 @@ import org.opendatakit.counter.dao.AnswerDao;
 import org.opendatakit.counter.dto.Answer;
 
 public class CounterActivity extends AppCompatActivity {
+    // https://github.com/opendatakit/collect/blob/master/collect_app/src/main/java/org/odk/collect/android/widgets/ExIntegerWidget.java#L68
+    private static final int MAX_VALUE = 999999999;
+    private static final int MIN_VALUE = -99999999;
 
     private static final String CURRENT_VALUE = "currentValue";
     private static final String FORM_ID = "form_id";
@@ -43,29 +46,15 @@ public class CounterActivity extends AppCompatActivity {
     private Button plusButton;
     private Button minusButton;
 
-    private Handler handler;
-
     private String formId;
     private String questionId;
-
-    // https://github.com/opendatakit/collect/blob/master/collect_app/src/main/java/org/odk/collect/android/widgets/ExIntegerWidget.java#L68
-    private int maxValue = 999999999;
-    private int minValue = -99999999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_counter);
 
-        TextView formNameTv = (TextView) findViewById(R.id.form_name);
-        TextView questionNameTv = (TextView) findViewById(R.id.question_name);
-        currentValueTv = (TextView) findViewById(R.id.current_value);
-
-        plusButton = (Button) findViewById(R.id.plus_button);
-        minusButton = (Button) findViewById(R.id.minus_button);
-
-        formNameTv.setText(getIntent().getStringExtra(FORM_NAME));
-        questionNameTv.setText(getIntent().getStringExtra(QUESTION_NAME));
+        setUpLayoutElements();
 
         formId = getIntent().getStringExtra(FORM_ID);
         questionId = getIntent().getStringExtra(QUESTION_ID);
@@ -78,10 +67,11 @@ public class CounterActivity extends AppCompatActivity {
             currentValueTv.setText(getString(R.string.one));
         }
 
-        adjustTextSize(getCurrentValue());
+        int currentValue = getCurrentValue();
+        adjustTextSize(currentValue);
+        disableButtonIfNeeded(currentValue);
 
-        if (startAutomaticIncrementation()) {
-            handler = new Handler();
+        if (savedInstanceState == null && getIntent().getBooleanExtra(INCREMENT, false)) {
             incrementAutomatically();
         }
     }
@@ -122,19 +112,14 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private void incrementAutomatically() {
-        handler.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             public void run() {
                 int currentValue = getCurrentValue();
-                currentValueTv.setText(String.valueOf(getCurrentValue() + 1));
-                if (currentValue + 1 < maxValue) {
-                    incrementAutomatically();
+                if (currentValue < MAX_VALUE) {
+                    currentValueTv.setText(String.valueOf(currentValue + 1));
                 }
             }
         }, 500);
-    }
-
-    private boolean startAutomaticIncrementation() {
-        return getIntent().getBooleanExtra(INCREMENT, false);
     }
 
     public void resetValue(View view) {
@@ -143,9 +128,9 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private void disableButtonIfNeeded(int currentValue) {
-        if (currentValue == maxValue) {
+        if (currentValue == MAX_VALUE) {
             plusButton.setEnabled(false);
-        } else if (currentValue == minValue) {
+        } else if (currentValue == MIN_VALUE) {
             minusButton.setEnabled(false);
         } else {
             plusButton.setEnabled(true);
@@ -159,5 +144,17 @@ public class CounterActivity extends AppCompatActivity {
         } else {
             currentValueTv.setTextSize(110);
         }
+    }
+
+    private void setUpLayoutElements() {
+        TextView formNameTv = (TextView) findViewById(R.id.form_name);
+        TextView questionNameTv = (TextView) findViewById(R.id.question_name);
+        currentValueTv = (TextView) findViewById(R.id.current_value);
+
+        plusButton = (Button) findViewById(R.id.plus_button);
+        minusButton = (Button) findViewById(R.id.minus_button);
+
+        formNameTv.setText(getIntent().getStringExtra(FORM_NAME));
+        questionNameTv.setText(getIntent().getStringExtra(QUESTION_NAME));
     }
 }
