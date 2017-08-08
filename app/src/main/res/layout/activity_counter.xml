@@ -74,24 +74,24 @@ limitations under the License.
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/plus_button"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/plus"
-                    android:onClick="incrementValue"
-                    android:textSize="40sp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:background="@drawable/button_border"/>
-
-                <Button
                     android:id="@+id/minus_button"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/minus"
                     android:onClick="decrementValue"
+                    android:textSize="40sp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/button_border"/>
+
+                <Button
+                    android:id="@+id/plus_button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/plus"
+                    android:onClick="incrementValue"
                     android:textSize="40sp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
