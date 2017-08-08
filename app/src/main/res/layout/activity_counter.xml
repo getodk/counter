@@ -52,11 +52,10 @@ limitations under the License.
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <TextView
+            <TextSwitcher
                 android:id="@+id/current_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </FrameLayout>
 
         <LinearLayout
