@@ -20,9 +20,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import org.opendatakit.counter.R;
 import org.opendatakit.counter.dao.AnswerDao;
@@ -41,7 +45,7 @@ public class CounterActivity extends AppCompatActivity {
     private static final String INCREMENT = "increment";
     private static final String VALUE = "value";
 
-    private TextView currentValueTv;
+    private TextSwitcher currentValueTv;
 
     private Button plusButton;
     private Button minusButton;
@@ -67,6 +71,8 @@ public class CounterActivity extends AppCompatActivity {
             currentValueTv.setText(getString(R.string.one));
         }
 
+        setupAnimation();
+
         int currentValue = getCurrentValue();
         adjustTextSize(currentValue);
         disableButtonIfNeeded(currentValue);
@@ -78,7 +84,8 @@ public class CounterActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString(CURRENT_VALUE, currentValueTv.getText().toString());
+        TextView tv = (TextView) currentValueTv.getCurrentView();
+        savedInstanceState.putString(CURRENT_VALUE, tv.getText().toString());
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -108,7 +115,8 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private int getCurrentValue() {
-        return Integer.parseInt(currentValueTv.getText().toString());
+        TextView tv = (TextView) currentValueTv.getCurrentView();
+        return Integer.parseInt(tv.getText().toString());
     }
 
     private void incrementAutomatically() {
@@ -117,9 +125,11 @@ public class CounterActivity extends AppCompatActivity {
                 int currentValue = getCurrentValue();
                 if (currentValue < MAX_VALUE) {
                     currentValueTv.setText(String.valueOf(currentValue + 1));
+                    disableButtonIfNeeded(currentValue + 1);
+                    adjustTextSize(currentValue + 1);
                 }
             }
-        }, 500);
+        }, 650);
     }
 
     public void resetValue(View view) {
@@ -139,22 +149,36 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private void adjustTextSize(int currentValue) {
+        TextView tv = (TextView) currentValueTv.getCurrentView();
         if (currentValue > 99999 || currentValue < -9999) {
-            currentValueTv.setTextSize(50);
+            tv.setTextSize(50);
         } else {
-            currentValueTv.setTextSize(110);
+            tv.setTextSize(110);
         }
     }
 
     private void setUpLayoutElements() {
         TextView formNameTv = (TextView) findViewById(R.id.form_name);
         TextView questionNameTv = (TextView) findViewById(R.id.question_name);
-        currentValueTv = (TextView) findViewById(R.id.current_value);
+        currentValueTv = (TextSwitcher) findViewById(R.id.current_value);
+        currentValueTv.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView t = new TextView(CounterActivity.this);
+                t.setGravity(Gravity.CENTER);
+                return t;
+            }
+        });
 
         plusButton = (Button) findViewById(R.id.plus_button);
         minusButton = (Button) findViewById(R.id.minus_button);
 
         formNameTv.setText(getIntent().getStringExtra(FORM_NAME));
         questionNameTv.setText(getIntent().getStringExtra(QUESTION_NAME));
+    }
+
+    private void setupAnimation() {
+        currentValueTv.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
+        currentValueTv.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
     }
 }

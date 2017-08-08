@@ -47,9 +47,9 @@ limitations under the License.
                 android:layout_gravity="center_horizontal"
                 android:textSize="20sp" />
 
-            <TextView
+            <TextSwitcher
                 android:id="@+id/current_value"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />
 
