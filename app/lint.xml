@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <issue id="GradleDynamicVersion" severity="error" />
+    <issue id="DisableBaselineAlignment" severity="error" />
+    <issue id="IconDensities" severity="error" />
+
+    <issue id="ContentDescription" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+</lint>
