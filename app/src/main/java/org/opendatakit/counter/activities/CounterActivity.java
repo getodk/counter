@@ -16,6 +16,7 @@
 
 package org.opendatakit.counter.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -29,8 +30,6 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import org.opendatakit.counter.R;
-import org.opendatakit.counter.dao.AnswerDao;
-import org.opendatakit.counter.dto.Answer;
 
 public class CounterActivity extends AppCompatActivity {
     // https://github.com/opendatakit/collect/blob/master/collect_app/src/main/java/org/odk/collect/android/widgets/ExIntegerWidget.java#L68
@@ -65,8 +64,8 @@ public class CounterActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             currentValueTv.setText(savedInstanceState.getString(CURRENT_VALUE));
-        } else if (AnswerDao.getValue(formId + questionId) != null) {
-            currentValueTv.setText(String.valueOf(AnswerDao.getValue(formId + questionId)));
+        } else if (getValue(formId + questionId) != MAX_VALUE + 1) {
+            currentValueTv.setText(String.valueOf(getValue(formId + questionId)));
         } else {
             currentValueTv.setText(getString(R.string.one));
         }
@@ -92,12 +91,23 @@ public class CounterActivity extends AppCompatActivity {
 
     public void returnValue(View view) {
         int currentValue = getCurrentValue();
-        AnswerDao.saveAnswer(new Answer(formId + questionId, currentValue));
+        saveValue(formId + questionId, currentValue);
 
         Intent intent = new Intent();
         intent.putExtra(VALUE, currentValue);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    private void saveValue(String key, int value) {
+        getPreferences(Context.MODE_PRIVATE)
+                .edit()
+                .putInt(key, value)
+                .apply();
+    }
+
+    private Integer getValue(String key) {
+        return getPreferences(Context.MODE_PRIVATE).getInt(key, MAX_VALUE + 1);
     }
 
     public void incrementValue(View view) {
