@@ -35,6 +35,7 @@ public class CounterActivity extends AppCompatActivity {
     // https://github.com/opendatakit/collect/blob/master/collect_app/src/main/java/org/odk/collect/android/widgets/ExIntegerWidget.java#L68
     private static final int MAX_VALUE = 999999999;
     private static final int MIN_VALUE = -99999999;
+    private static final int SHARED_PREFS_DEFAULT_VALUE = MAX_VALUE + 1;
 
     private static final String CURRENT_VALUE = "currentValue";
     private static final String FORM_ID = "form_id";
@@ -64,7 +65,7 @@ public class CounterActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             currentValueTv.setText(savedInstanceState.getString(CURRENT_VALUE));
-        } else if (getValue(formId + questionId) != MAX_VALUE + 1) {
+        } else if (getValue(formId + questionId) != SHARED_PREFS_DEFAULT_VALUE) {
             currentValueTv.setText(String.valueOf(getValue(formId + questionId)));
         } else {
             currentValueTv.setText(getString(R.string.one));
@@ -106,8 +107,8 @@ public class CounterActivity extends AppCompatActivity {
                 .apply();
     }
 
-    private Integer getValue(String key) {
-        return getPreferences(Context.MODE_PRIVATE).getInt(key, MAX_VALUE + 1);
+    private int getValue(String key) {
+        return getPreferences(Context.MODE_PRIVATE).getInt(key, SHARED_PREFS_DEFAULT_VALUE);
     }
 
     public void incrementValue(View view) {
