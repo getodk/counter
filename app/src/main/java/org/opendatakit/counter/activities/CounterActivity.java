@@ -67,6 +67,8 @@ public class CounterActivity extends AppCompatActivity {
             currentValueTv.setText(savedInstanceState.getString(CURRENT_VALUE));
         } else if (SharedPreferencesUtils.getValue(this, formId + questionId) != SHARED_PREFS_DEFAULT_VALUE) {
             currentValueTv.setText(String.valueOf(SharedPreferencesUtils.getValue(this, formId + questionId)));
+        } else if (getIntent().getBooleanExtra(INCREMENT, false)) {
+            currentValueTv.setText(getString(R.string.zero));
         } else {
             currentValueTv.setText(getString(R.string.one));
         }
