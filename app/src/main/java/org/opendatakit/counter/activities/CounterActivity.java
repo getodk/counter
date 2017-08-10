@@ -137,6 +137,7 @@ public class CounterActivity extends AppCompatActivity {
 
     public void resetValue(View view) {
         currentValueTv.setText(getString(R.string.one));
+        disableButtonIfNeeded(1);
         adjustTextSize(1);
     }
 
