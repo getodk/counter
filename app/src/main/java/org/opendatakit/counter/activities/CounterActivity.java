@@ -16,7 +16,6 @@
 
 package org.opendatakit.counter.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -30,12 +29,13 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import org.opendatakit.counter.R;
+import org.opendatakit.counter.utilities.SharedPreferencesUtils;
 
 public class CounterActivity extends AppCompatActivity {
     // https://github.com/opendatakit/collect/blob/master/collect_app/src/main/java/org/odk/collect/android/widgets/ExIntegerWidget.java#L68
     private static final int MAX_VALUE = 999999999;
     private static final int MIN_VALUE = -99999999;
-    private static final int SHARED_PREFS_DEFAULT_VALUE = MAX_VALUE + 1;
+    public static final int SHARED_PREFS_DEFAULT_VALUE = MAX_VALUE + 1;
 
     private static final String CURRENT_VALUE = "currentValue";
     private static final String FORM_ID = "form_id";
@@ -65,8 +65,8 @@ public class CounterActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             currentValueTv.setText(savedInstanceState.getString(CURRENT_VALUE));
-        } else if (getValue(formId + questionId) != SHARED_PREFS_DEFAULT_VALUE) {
-            currentValueTv.setText(String.valueOf(getValue(formId + questionId)));
+        } else if (SharedPreferencesUtils.getValue(this, formId + questionId) != SHARED_PREFS_DEFAULT_VALUE) {
+            currentValueTv.setText(String.valueOf(SharedPreferencesUtils.getValue(this, formId + questionId)));
         } else {
             currentValueTv.setText(getString(R.string.one));
         }
@@ -92,23 +92,12 @@ public class CounterActivity extends AppCompatActivity {
 
     public void returnValue(View view) {
         int currentValue = getCurrentValue();
-        saveValue(formId + questionId, currentValue);
+        SharedPreferencesUtils.saveValue(this, formId + questionId, currentValue);
 
         Intent intent = new Intent();
         intent.putExtra(VALUE, currentValue);
         setResult(RESULT_OK, intent);
         finish();
-    }
-
-    private void saveValue(String key, int value) {
-        getPreferences(Context.MODE_PRIVATE)
-                .edit()
-                .putInt(key, value)
-                .apply();
-    }
-
-    private int getValue(String key) {
-        return getPreferences(Context.MODE_PRIVATE).getInt(key, SHARED_PREFS_DEFAULT_VALUE);
     }
 
     public void incrementValue(View view) {
