@@ -13,7 +13,7 @@
       </instance>
       <itext>
         <translation lang="English">
-          <text id="/data/form_title:label">
+          <text id="/data/form_name:label">
             <value>Counter Form</value>
           </text>
           <text id="/data/Counter1:label">
@@ -30,7 +30,7 @@
           </text>
         </translation>
         <translation lang="Polish">
-          <text id="/data/form_title:label">
+          <text id="/data/form_name:label">
             <value>Formularz z licznikiem</value>
           </text>
           <text id="/data/Counter1:label">
@@ -47,11 +47,11 @@
     </model>
   </h:head>
   <h:body>
-    <input ref="/data/Counter1" appearance="ex:org.opendatakit.counter(form_id='counter-form', form_title='Counter Form', question_id='1', question_title='Counter 1')">
+    <input ref="/data/Counter1" appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name='Counter Form', question_id='1', question_name='Counter 1')">
       <label ref="jr:itext('/data/Counter1:label')"/>
       <hint ref="jr:itext('/data/Counter1:hint')"/>
     </input>
-    <input ref="/data/Counter2" appearance="ex:org.opendatakit.counter(form_id='counter-form', form_title=jr:itext('/data/form_title:label'), question_id='2', question_title=jr:itext('/data/Counter2:label'), increment=true())">
+    <input ref="/data/Counter2" appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name=jr:itext('/data/form_name:label'), question_id='2', question_name=jr:itext('/data/Counter2:label'), increment=true())">
       <label ref="jr:itext('/data/Counter2:label')"/>
       <hint ref="jr:itext('/data/Counter2:hint')"/>
     </input>
