@@ -2,7 +2,8 @@
 
 This app is intended to be used from ODK Collect as a counter.
 
-[Sample form for testing](https://github.com/opendatakit/counter/blob/master/counterForm.xml)
+[Sample xml form](https://github.com/opendatakit/counter/blob/master/counter.xml)
+[Sample xls form](https://github.com/opendatakit/counter/blob/master/counter.xlsx)
 
 In order to use the app you need to create a form which contains an [ExIntegerWidget](https://github.com/opendatakit/collect/blob/master/collect_app/src/main/java/org/odk/collect/android/widgets/ExIntegerWidget.java) and add an appearance according to this pattern:
 
