@@ -19,7 +19,7 @@ dependencies:
         - if [ ! -e /usr/local/android-sdk-linux/platforms/android-25 ]; then echo y | android update sdk --no-ui --all --filter "android-25"; fi
         - if ! $(grep -q "Revision=47.0.0" /usr/local/android-sdk-linux/extras/android/m2repository/source.properties); then echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"; fi
         - if ! $(grep -q "Revision=57.0.0" /usr/local/android-sdk-linux/extras/google/m2repository/source.properties); then echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"; fi
-        - if [ ! -e /extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2 ]; then echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+        - if [ ! -e /usr/local/android-sdk-linux/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2 ]; then echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
 
     cache_directories:
         - /usr/local/android-sdk-linux/tools
