@@ -1,10 +1,10 @@
 <!-- 
 
-Thank you for taking the time to report an ODK Collect issue!
+Thank you for taking the time to report an ODK Counter issue!
 
-This space is for submitting problems and feature requests. For general usage or form design questions, please email opendatakit@googlegroups.com or for ODK Collect source code questions, please email opendatakit-developers@googlegroups.com
+This space is for submitting problems and feature requests. For general usage or form design questions, please email opendatakit@googlegroups.com or for ODK Counter source code questions, please email opendatakit-developers@googlegroups.com
 
-Before filling this form, visit https://github.com/opendatakit/collect/issues?q=is%3Aissue and search to see whether your issue was already reported or fixed. If you find a match, comment on it or add a +1 rather than posting a new issue. If you find a problem you know how to fix, submit a pull request. 🎉
+Before filling this form, visit https://github.com/opendatakit/counter/issues?q=is%3Aissue and search to see whether your issue was already reported or fixed. If you find a match, comment on it or add a +1 rather than posting a new issue. If you find a problem you know how to fix, submit a pull request. 🎉
 
 For all problem reports, please use the template below. Also include any relevant stack traces or error messages.
 
@@ -13,7 +13,7 @@ For feature requests, please include the problem description (what problem do yo
 -->
 
 #### Software and hardware versions 
-Collect v1.x.x, Android vx.x.x, device used...
+Counter v1.x.x, Android vx.x.x, device used...
 
 #### Problem description
 

@@ -1,11 +1,11 @@
-# Contributing code to ODK Collect
+# Contributing code to ODK Counter
 
 This is a living document. If you see something that could be improved, edit this document and submit a pull request following the instructions below!
 
 ## Submitting a pull request
-To contribute code to ODK Collect, you will need to open a [pull request](https://help.github.com/articles/about-pull-requests/) which will be reviewed by the community and then merged into the core project.
+To contribute code to ODK Counter, you will need to open a [pull request](https://help.github.com/articles/about-pull-requests/) which will be reviewed by the community and then merged into the core project.
 
-1. [Set up your development environment](https://github.com/opendatakit/collect#setting-up-your-development-environment). 
+1. [Set up your development environment](https://github.com/opendatakit/counter#setting-up-your-development-environment). 
 
 1. To make sure you have the latest version of the code, set up this repository as [a remote for your fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/) and then [sync your fork](https://help.github.com/articles/syncing-a-fork/).
 
@@ -13,7 +13,7 @@ To contribute code to ODK Collect, you will need to open a [pull request](https:
 
         git checkout -b NAME_OF_YOUR_BRANCH
 
-1. If there is an [issue](https://github.com/opendatakit/collect/issues) corresponding to what you will work on, **comment on it** to say you are addressing it. If there is no issue yet, create one to provide background on the problem you are solving.
+1. If there is an [issue](https://github.com/opendatakit/counter/issues) corresponding to what you will work on, **comment on it** to say you are addressing it. If there is no issue yet, create one to provide background on the problem you are solving.
 
 1. Once you've made incremental progress towards you goal, commit your changes with a meaningful commit message. Use [keywords for closing issues](https://help.github.com/articles/closing-issues-via-commit-messages/) to refer to issues and have them automatically close when your changes are merged.
 
@@ -23,11 +23,11 @@ To contribute code to ODK Collect, you will need to open a [pull request](https:
 
         git push
         
-1. Once you have completed your code changes, verify that you have followed the [style guidelines](https://github.com/opendatakit/collect/blob/master/CONTRIBUTING.md#style-guidelines). Additionally, [lint](https://developer.android.com/studio/write/lint.html) is run for each new build so please run `gradle lint` and fix any errors before issuing a pull request.
+1. Once you have completed your code changes, verify that you have followed the [style guidelines](https://github.com/opendatakit/counter/blob/master/CONTRIBUTING.md#style-guidelines). Additionally, [lint](https://developer.android.com/studio/write/lint.html) is run for each new build so please run `gradle lint` and fix any errors before issuing a pull request.
 
-1. When your changes are ready to be added to the core ODK Collect project, [open a pull request](https://help.github.com/articles/creating-a-pull-request/). Make sure to set the base fork to `opendatakit/collect`. Describe your changes in the comment, refer to any relevant issues using [keywords for closing issues](https://help.github.com/articles/closing-issues-via-commit-messages/) and tag any person you think might need to know about the changes.
+1. When your changes are ready to be added to the core ODK Counter project, [open a pull request](https://help.github.com/articles/creating-a-pull-request/). Make sure to set the base fork to `opendatakit/counter`. Describe your changes in the comment, refer to any relevant issues using [keywords for closing issues](https://help.github.com/articles/closing-issues-via-commit-messages/) and tag any person you think might need to know about the changes.
 
-1. Pull requests will be reviewed when committers have time. If you haven't received a review in 10 days, you may notify committers by putting `@opendatakit/collect` in a comment.
+1. Pull requests will be reviewed when committers have time. If you haven't received a review in 10 days, you may notify committers by putting `@opendatakit/counter` in a comment.
 
 ## Making sure your pull request is accepted
 1. Confirm that your code compiles.
@@ -66,9 +66,9 @@ Small fixes that target very particular bugs may occasionally be merged without 
 Follow the [Android style rules](http://source.android.com/source/code-style.html) and the [Google Java style guide](https://google.github.io/styleguide/javaguide.html).
 
 ## Strings
-Always use [string resources](https://developer.android.com/guide/topics/resources/string-resource.html) instead of literal strings. This ensures wording consistency across the project and also enables full translation of the app. Only make changes to the base `res/values/strings.xml` English file and not to the other language files. The translated files are generated from [Transifex](https://www.transifex.com/opendatakit/collect/) where translations can be submitted by the community. Names of software packages or other untranslatable strings should be placed in `res/values/untranslated.xml`.
+Always use [string resources](https://developer.android.com/guide/topics/resources/string-resource.html) instead of literal strings. This ensures wording consistency across the project and also enables full translation of the app. Only make changes to the base `res/values/strings.xml` English file and not to the other language files. The translated files are generated from [Transifex](https://www.transifex.com/opendatakit/counter/) where translations can be submitted by the community. Names of software packages or other untranslatable strings should be placed in `res/values/untranslated.xml`.
 
 ## Code from external sources
-ODK Collect is released under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). Please make sure that any code you include is an OSI-approved [permissive license](https://opensource.org/faq#permissive). **Please note that if no license is specified for a piece of code or if it has an incompatible license such as GPL, using it puts the project at legal risk**.
+ODK Counter is released under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0). Please make sure that any code you include is an OSI-approved [permissive license](https://opensource.org/faq#permissive). **Please note that if no license is specified for a piece of code or if it has an incompatible license such as GPL, using it puts the project at legal risk**.
 
-Sites with compatible licenses (including [StackOverflow](http://stackoverflow.com/)) will sometimes provide exactly the code snippet needed to solve a problem. You are encouraged to use such snippets in ODK Collect as long as you attribute them by including a direct link to the source. In addition to complying with the content license, this provides useful context for anyone reading the code. 
+Sites with compatible licenses (including [StackOverflow](http://stackoverflow.com/)) will sometimes provide exactly the code snippet needed to solve a problem. You are encouraged to use such snippets in ODK Counter as long as you attribute them by including a direct link to the source. In addition to complying with the content license, this provides useful context for anyone reading the code. 
