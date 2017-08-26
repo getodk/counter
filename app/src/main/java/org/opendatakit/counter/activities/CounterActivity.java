@@ -162,8 +162,6 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private void setUpLayoutElements() {
-        TextView formNameTv = (TextView) findViewById(R.id.form_name);
-        TextView questionNameTv = (TextView) findViewById(R.id.question_name);
         currentValueTv = (TextSwitcher) findViewById(R.id.current_value);
         currentValueTv.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -176,6 +174,9 @@ public class CounterActivity extends AppCompatActivity {
 
         plusButton = (Button) findViewById(R.id.plus_button);
         minusButton = (Button) findViewById(R.id.minus_button);
+
+        TextView formNameTv = (TextView) findViewById(R.id.form_name);
+        TextView questionNameTv = (TextView) findViewById(R.id.question_name);
 
         formNameTv.setText(getIntent().getStringExtra(FORM_NAME));
         questionNameTv.setText(getIntent().getStringExtra(QUESTION_NAME));
