@@ -1,4 +1,8 @@
 apply plugin: 'com.android.application'
+apply from: '../config/quality.gradle'
+
+import com.android.ddmlib.DdmPreferences
+DdmPreferences.setTimeOut(60000)
 
 ant.condition(property: 'os', value: 'windows') {
     os(family: 'windows')
