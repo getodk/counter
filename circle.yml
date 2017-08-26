@@ -28,6 +28,7 @@ dependencies:
         - /usr/local/android-sdk-linux/platforms/android-25
         - /usr/local/android-sdk-linux/extras/android/m2repository
         - /usr/local/android-sdk-linux/extras/google/m2repository
+        - /usr/local/android-sdk-linux/extras/m2repository
 
 test:
     override:
