@@ -1,58 +1,58 @@
-<?xml version="1.0"?>
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <h:head>
-    <h:title>counter</h:title>
-    <model>
-      <itext>
-        <translation lang="English">
-          <text id="/counter/form_name:label">
-            <value>Counter Form</value>
-          </text>
-          <text id="/counter/counter2:label">
-            <value>Counter 2</value>
-          </text>
-          <text id="/counter/counter1:label">
-            <value>Counter 1</value>
-          </text>
-        </translation>
-        <translation lang="Polish">
-          <text id="/counter/form_name:label">
-            <value>Formularz z Licznikiem</value>
-          </text>
-          <text id="/counter/counter2:label">
-            <value>Licznik 2</value>
-          </text>
-          <text id="/counter/counter1:label">
-            <value>Licznik 1</value>
-          </text>
-        </translation>
-      </itext>
-      <instance>
-        <counter id="counter">
-          <counter1/>
-          <counter2/>
-          <form_name/>
-          <meta>
-            <instanceID/>
-          </meta>
-        </counter>
-      </instance>
-      <bind nodeset="/counter/counter1" type="int"/>
-      <bind nodeset="/counter/counter2" type="int"/>
-      <bind nodeset="/counter/form_name" readonly="true()" relevant="false()" type="string"/>
-      <bind calculate="concat('uuid:', uuid())" nodeset="/counter/meta/instanceID" readonly="true()" type="string"/>
-    </model>
-  </h:head>
-  <h:body>
-    <input appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name='Counter Form', question_id='1', question_name='Counter 1')" ref="/counter/counter1">
-      <label ref="jr:itext('/counter/counter1:label')"/>
-    </input>
-    <input appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name=jr:itext('/counter/form_name:label'), question_id='2', question_name=jr:itext('/counter/counter2:label'), increment=true())" ref="/counter/counter2">
-      <label ref="jr:itext('/counter/counter2:label')"/>
-      <hint>increment=true()</hint>
-    </input>
-    <input ref="/counter/form_name">
-      <label ref="jr:itext('/counter/form_name:label')"/>
-    </input>
-  </h:body>
+<?xml version="1.0" encoding="UTF-8"?>
+<h:html xmlns:h="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:jr="http://openrosa.org/javarosa" xmlns:odk="http://www.opendatakit.org/xforms" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <h:head>
+      <h:title>counter</h:title>
+      <model odk:xforms-version="1.0.0">
+         <itext>
+            <translation lang="English">
+               <text id="/data/counter1:label">
+                  <value>Counter 1</value>
+               </text>
+               <text id="/data/counter2:label">
+                  <value>Counter 2</value>
+               </text>
+               <text id="/data/form_name:label">
+                  <value>Counter Form</value>
+               </text>
+            </translation>
+            <translation lang="Polish">
+               <text id="/data/counter1:label">
+                  <value>Licznik 1</value>
+               </text>
+               <text id="/data/counter2:label">
+                  <value>Licznik 2</value>
+               </text>
+               <text id="/data/form_name:label">
+                  <value>Formularz z Licznikiem</value>
+               </text>
+            </translation>
+         </itext>
+         <instance>
+            <data id="counter">
+               <counter1 />
+               <counter2 />
+               <form_name />
+               <meta>
+                  <instanceID />
+               </meta>
+            </data>
+         </instance>
+         <bind nodeset="/data/counter1" type="int" />
+         <bind nodeset="/data/counter2" type="int" />
+         <bind nodeset="/data/form_name" readonly="true()" relevant="false()" type="string" />
+         <bind jr:preload="uid" nodeset="/data/meta/instanceID" readonly="true()" type="string" />
+      </model>
+   </h:head>
+   <h:body>
+      <input appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name='Counter Form', question_id='1', question_name='Counter 1')" ref="/data/counter1">
+         <label ref="jr:itext('/data/counter1:label')" />
+      </input>
+      <input appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name=jr:itext('/data/form_name:label'), question_id='2', question_name=jr:itext('/data/counter2:label'), increment=true())" ref="/data/counter2">
+         <label ref="jr:itext('/data/counter2:label')" />
+         <hint>increment=true()</hint>
+      </input>
+      <input ref="/data/form_name">
+         <label ref="jr:itext('/data/form_name:label')" />
+      </input>
+   </h:body>
 </h:html>
