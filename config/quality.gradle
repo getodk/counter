@@ -48,10 +48,10 @@ task pmd(type: Pmd) {
         xml.enabled = false
         html.enabled = true
         xml {
-            destination "$reportsDir/pmd/pmd.xml"
+            setDestination new File("$reportsDir/pmd/pmd.xml")
         }
         html {
-            destination "$reportsDir/pmd/pmd.html"
+            setDestination new File("$reportsDir/pmd/pmd.html")
         }
     }
 }
