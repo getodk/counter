@@ -18,7 +18,6 @@ package org.opendatakit.counter.activities;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -28,6 +27,8 @@ import android.widget.Button;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.opendatakit.counter.R;
 import org.opendatakit.counter.utilities.SharedPreferencesUtils;
