@@ -35,7 +35,6 @@ test:
         # Disable incremental dexing on all gradle commands to speed up clean builds
         # https://sites.google.com/a/android.com/tools/tech-docs/new-build-system/2-5-alpha-gradle-plugin/trying-gradle-plugin-2-5
         - ./gradlew pmd -Pandroid.useDexArchive=false
-        - ./gradlew findbugs -Pandroid.useDexArchive=false
         - ./gradlew lint -Pandroid.useDexArchive=false
         - ./gradlew checkstyle -Pandroid.useDexArchive=false
         - ./gradlew testDebugUnitTest -Pandroid.useDexArchive=false
@@ -55,9 +54,6 @@ test:
 
         - mkdir -p $CIRCLE_TEST_REPORTS/lint
         - find . -type f -regex ".*/app/build/reports/lint-results-*.*" -exec cp {} $CIRCLE_TEST_REPORTS/lint/ \;
-
-        - mkdir -p $CIRCLE_TEST_REPORTS/findbugs
-        - find . -type f -regex ".*/app/build/reports/findbugs/findbugs.*" -exec cp {} $CIRCLE_TEST_REPORTS/findbugs/ \;
 
         - mkdir -p $CIRCLE_TEST_REPORTS/pmd
         - find . -type f -regex ".*/app/build/reports/pmd/pmd*.*" -exec cp {} $CIRCLE_TEST_REPORTS/pmd/ \;
