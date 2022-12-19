@@ -101,9 +101,8 @@ android {
 
     // https://stackoverflow.com/a/27119543/152938
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def file = output.outputFile
-            output.outputFile = new File(file.parent, file.name.replace("app","counter").replace(".apk", "-" + defaultConfig.versionName + ".apk"))
+        variant.outputs.all { output ->
+            outputFileName = new File(outputFileName.replace(".apk", "-${defaultConfig.versionName}.apk"))
         }
     }
 
