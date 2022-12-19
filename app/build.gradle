@@ -106,8 +106,7 @@ android {
     }
 
     packagingOptions {
-        // Pick first occurrence of any files that cause conflicts, as defined
-        // in common.gradle
+        // Pick first occurrence of any files that cause conflicts, as defined in common.gradle
         pickFirst 'META-INF/DEPENDENCIES'
         pickFirst 'META-INF/LICENSE'
         pickFirst 'META-INF/LICENSE.txt'
