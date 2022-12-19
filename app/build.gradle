@@ -60,13 +60,12 @@ if (secretsFile.exists()) {
 }
 
 android {
-    compileSdkVersion(25)
-    buildToolsVersion('26.0.1')
+    compileSdkVersion(33)
 
     defaultConfig {
         applicationId('org.opendatakit.counter')
         minSdkVersion(16)
-        targetSdkVersion(22)
+        targetSdkVersion(33)
         versionCode getMasterCommitCount()
         versionName getVersionName()
         testInstrumentationRunner('android.support.test.runner.AndroidJUnitRunner')
