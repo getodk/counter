@@ -26,7 +26,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -124,14 +123,12 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private void incrementAutomatically() {
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                int currentValue = getCurrentValue();
-                if (currentValue < MAX_VALUE) {
-                    currentValueTv.setText(String.valueOf(currentValue + 1));
-                    disableButtonIfNeeded(currentValue + 1);
-                    adjustTextSize(currentValue + 1);
-                }
+        new Handler().postDelayed(() -> {
+            int currentValue = getCurrentValue();
+            if (currentValue < MAX_VALUE) {
+                currentValueTv.setText(String.valueOf(currentValue + 1));
+                disableButtonIfNeeded(currentValue + 1);
+                adjustTextSize(currentValue + 1);
             }
         }, 650);
     }
@@ -163,21 +160,18 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private void setUpLayoutElements() {
-        currentValueTv = (TextSwitcher) findViewById(R.id.current_value);
-        currentValueTv.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                TextView t = new TextView(CounterActivity.this);
-                t.setGravity(Gravity.CENTER);
-                return t;
-            }
+        currentValueTv = findViewById(R.id.current_value);
+        currentValueTv.setFactory(() -> {
+            TextView t = new TextView(CounterActivity.this);
+            t.setGravity(Gravity.CENTER);
+            return t;
         });
 
-        plusButton = (Button) findViewById(R.id.plus_button);
-        minusButton = (Button) findViewById(R.id.minus_button);
+        plusButton = findViewById(R.id.plus_button);
+        minusButton = findViewById(R.id.minus_button);
 
-        TextView formNameTv = (TextView) findViewById(R.id.form_name);
-        TextView questionNameTv = (TextView) findViewById(R.id.question_name);
+        TextView formNameTv = findViewById(R.id.form_name);
+        TextView questionNameTv = findViewById(R.id.question_name);
 
         formNameTv.setText(getIntent().getStringExtra(FORM_NAME));
         questionNameTv.setText(getIntent().getStringExtra(QUESTION_NAME));
