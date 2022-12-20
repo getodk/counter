@@ -23,13 +23,12 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.opendatakit.counter.R;
+import org.opendatakit.counter.databinding.ActivityCounterBinding;
 import org.opendatakit.counter.utilities.SharedPreferencesUtils;
 
 public class CounterActivity extends AppCompatActivity {
@@ -46,18 +45,16 @@ public class CounterActivity extends AppCompatActivity {
     private static final String INCREMENT = "increment";
     private static final String VALUE = "value";
 
-    private TextSwitcher currentValueTv;
-
-    private Button plusButton;
-    private Button minusButton;
-
     private String formId;
     private String questionId;
+
+    private ActivityCounterBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_counter);
+        binding = ActivityCounterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setUpLayoutElements();
 
@@ -65,13 +62,13 @@ public class CounterActivity extends AppCompatActivity {
         questionId = getIntent().getStringExtra(QUESTION_ID);
 
         if (savedInstanceState != null) {
-            currentValueTv.setText(savedInstanceState.getString(CURRENT_VALUE));
+            binding.currentValue.setText(savedInstanceState.getString(CURRENT_VALUE));
         } else if (SharedPreferencesUtils.getValue(this, formId + questionId) != SHARED_PREFS_DEFAULT_VALUE) {
-            currentValueTv.setText(String.valueOf(SharedPreferencesUtils.getValue(this, formId + questionId)));
+            binding.currentValue.setText(String.valueOf(SharedPreferencesUtils.getValue(this, formId + questionId)));
         } else if (getIntent().getBooleanExtra(INCREMENT, false)) {
-            currentValueTv.setText(getString(R.string.zero));
+            binding.currentValue.setText(getString(R.string.zero));
         } else {
-            currentValueTv.setText(getString(R.string.one));
+            binding.currentValue.setText(getString(R.string.one));
         }
 
         setupAnimation();
@@ -87,7 +84,7 @@ public class CounterActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        TextView tv = (TextView) currentValueTv.getCurrentView();
+        TextView tv = (TextView) binding.currentValue.getCurrentView();
         savedInstanceState.putString(CURRENT_VALUE, tv.getText().toString());
 
         super.onSaveInstanceState(savedInstanceState);
@@ -105,20 +102,20 @@ public class CounterActivity extends AppCompatActivity {
 
     public void incrementValue(View view) {
         int currentValue = getCurrentValue();
-        currentValueTv.setText(String.valueOf(currentValue + 1));
+        binding.currentValue.setText(String.valueOf(currentValue + 1));
         disableButtonIfNeeded(currentValue + 1);
         adjustTextSize(currentValue + 1);
     }
 
     public void decrementValue(View view) {
         int currentValue = getCurrentValue();
-        currentValueTv.setText(String.valueOf(currentValue - 1));
+        binding.currentValue.setText(String.valueOf(currentValue - 1));
         disableButtonIfNeeded(currentValue - 1);
         adjustTextSize(currentValue - 1);
     }
 
     private int getCurrentValue() {
-        TextView tv = (TextView) currentValueTv.getCurrentView();
+        TextView tv = (TextView) binding.currentValue.getCurrentView();
         return Integer.parseInt(tv.getText().toString());
     }
 
@@ -126,7 +123,7 @@ public class CounterActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             int currentValue = getCurrentValue();
             if (currentValue < MAX_VALUE) {
-                currentValueTv.setText(String.valueOf(currentValue + 1));
+                binding.currentValue.setText(String.valueOf(currentValue + 1));
                 disableButtonIfNeeded(currentValue + 1);
                 adjustTextSize(currentValue + 1);
             }
@@ -134,24 +131,24 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     public void resetValue(View view) {
-        currentValueTv.setText(getString(R.string.one));
+        binding.currentValue.setText(getString(R.string.one));
         disableButtonIfNeeded(1);
         adjustTextSize(1);
     }
 
     private void disableButtonIfNeeded(int currentValue) {
         if (currentValue == MAX_VALUE) {
-            plusButton.setEnabled(false);
+            binding.plusButton.setEnabled(false);
         } else if (currentValue == MIN_VALUE) {
-            minusButton.setEnabled(false);
+            binding.minusButton.setEnabled(false);
         } else {
-            plusButton.setEnabled(true);
-            minusButton.setEnabled(true);
+            binding.plusButton.setEnabled(true);
+            binding.minusButton.setEnabled(true);
         }
     }
 
     private void adjustTextSize(int currentValue) {
-        TextView tv = (TextView) currentValueTv.getCurrentView();
+        TextView tv = (TextView) binding.currentValue.getCurrentView();
         if (currentValue > 99999 || currentValue < -9999) {
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);;
         } else {
@@ -160,25 +157,18 @@ public class CounterActivity extends AppCompatActivity {
     }
 
     private void setUpLayoutElements() {
-        currentValueTv = findViewById(R.id.current_value);
-        currentValueTv.setFactory(() -> {
+        binding.currentValue.setFactory(() -> {
             TextView t = new TextView(CounterActivity.this);
             t.setGravity(Gravity.CENTER);
             return t;
         });
 
-        plusButton = findViewById(R.id.plus_button);
-        minusButton = findViewById(R.id.minus_button);
-
-        TextView formNameTv = findViewById(R.id.form_name);
-        TextView questionNameTv = findViewById(R.id.question_name);
-
-        formNameTv.setText(getIntent().getStringExtra(FORM_NAME));
-        questionNameTv.setText(getIntent().getStringExtra(QUESTION_NAME));
+        binding.formName.setText(getIntent().getStringExtra(FORM_NAME));
+        binding.questionName.setText(getIntent().getStringExtra(QUESTION_NAME));
     }
 
     private void setupAnimation() {
-        currentValueTv.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
-        currentValueTv.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
+        binding.currentValue.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
+        binding.currentValue.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
     }
 }
