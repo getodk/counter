@@ -16,7 +16,7 @@
 package org.opendatakit.counter.utilities
 
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import org.opendatakit.counter.activities.CounterActivity
 
 object SharedPreferencesUtils {
