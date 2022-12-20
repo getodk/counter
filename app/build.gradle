@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply from: '../config/quality.gradle'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 import com.android.ddmlib.DdmPreferences
 DdmPreferences.setTimeOut(60000)
