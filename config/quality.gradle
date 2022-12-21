@@ -1,5 +1,6 @@
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
+apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 /*
  * Copyright 2015 Vincent Brison.
@@ -18,7 +19,7 @@ apply plugin: 'pmd'
  */
 
 // Add checkstyle, pmd and lint to the check task.
-check.dependsOn 'checkstyle', 'pmd', 'lint'
+check.dependsOn 'checkstyle', 'pmd', 'ktlintCheck'
 
 def configDir = "${project.rootDir}/config/quality"
 def reportsDir = "${project.buildDir}/reports"
@@ -53,16 +54,5 @@ task pmd(type: Pmd) {
         html {
             setDestination new File("$reportsDir/pmd/pmd.html")
         }
-    }
-}
-
-android {
-    lintOptions {
-        abortOnError true
-        xmlReport true
-        htmlReport true
-        lintConfig file("$configDir/lint/lint.xml")
-        htmlOutput file("$reportsDir/lint/lint-result.html")
-        xmlOutput file("$reportsDir/lint/lint-result.xml")
     }
 }
