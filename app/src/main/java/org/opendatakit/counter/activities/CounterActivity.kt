@@ -15,18 +15,18 @@
  */
 package org.opendatakit.counter.activities
 
-import org.opendatakit.counter.utilities.SharedPreferencesUtils.getValue
-import org.opendatakit.counter.utilities.SharedPreferencesUtils.saveValue
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import org.opendatakit.counter.R
-import android.widget.TextView
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import org.opendatakit.counter.R
 import org.opendatakit.counter.databinding.ActivityCounterBinding
+import org.opendatakit.counter.utilities.SharedPreferencesUtils.getValue
+import org.opendatakit.counter.utilities.SharedPreferencesUtils.saveValue
 
 class CounterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCounterBinding
@@ -74,14 +74,17 @@ class CounterActivity : AppCompatActivity() {
     }
 
     private fun incrementAutomatically() {
-        Handler().postDelayed({
-            val currentValue = getCurrentValue()
-            if (currentValue < MAX_VALUE) {
-                binding.currentValue.setText((currentValue + 1).toString())
-                disableButtonIfNeeded(currentValue + 1)
-                adjustTextSize(currentValue + 1)
-            }
-        }, 650)
+        Handler().postDelayed(
+            {
+                val currentValue = getCurrentValue()
+                if (currentValue < MAX_VALUE) {
+                    binding.currentValue.setText((currentValue + 1).toString())
+                    disableButtonIfNeeded(currentValue + 1)
+                    adjustTextSize(currentValue + 1)
+                }
+            },
+            650
+        )
     }
 
     private fun disableButtonIfNeeded(currentValue: Int) {

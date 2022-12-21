@@ -1,7 +1,7 @@
 package org.opendatakit.counter.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import org.opendatakit.counter.R
 
 class MainActivity : AppCompatActivity() {
