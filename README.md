@@ -31,6 +31,10 @@ appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name='Counte
 
 **increment=true()** - an optional parameter. If set to true an initial value displayed in the Counter app is 0 and it will be increased by 1 after 0.5s otherwise the initial value is set to 1 and autoincrement doesn't take place.
 
+**autoincrement=true()** - an optional parameter. If set to true it works like **increment=true()** but additionally the buttons to manually change the value are disabled.
+
+When both **increment** and **autoincrement** are used **autoincrement** takes precedence.
+
 You can use translations in **form_name** and **question_name** by following this pattern:
 ```
 appearance="ex:org.opendatakit.counter(form_id='counter-form', form_name=jr:itext('/data/form_name:label'), question_id='2', question_name=jr:itext('/data/Counter2:label'), increment=true())"
