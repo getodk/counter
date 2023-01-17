@@ -47,7 +47,7 @@ class CounterActivity : AppCompatActivity() {
             binding.currentValue.setText(savedInstanceState.getString(CURRENT_VALUE))
         } else if (getValue(this, formId + questionId) != SHARED_PREFS_DEFAULT_VALUE) {
             binding.currentValue.setText(getValue(this, formId + questionId).toString())
-        } else if (intent.getBooleanExtra(INCREMENT, false)) {
+        } else if (intent.getBooleanExtra(INCREMENT, false) || intent.getBooleanExtra(AUTOINCREMENT, false)) {
             binding.currentValue.setText(getString(R.string.zero))
         } else {
             binding.currentValue.setText(getString(R.string.one))
@@ -55,9 +55,9 @@ class CounterActivity : AppCompatActivity() {
 
         val currentValue = getCurrentValue()
         adjustTextSize(currentValue)
-        disableButtonIfNeeded(currentValue)
+        disableButtonsIfNeeded(currentValue)
 
-        if (savedInstanceState == null && intent.getBooleanExtra(INCREMENT, false)) {
+        if (savedInstanceState == null && (intent.getBooleanExtra(INCREMENT, false) || intent.getBooleanExtra(AUTOINCREMENT, false))) {
             incrementAutomatically()
         }
     }
@@ -79,7 +79,7 @@ class CounterActivity : AppCompatActivity() {
                 val currentValue = getCurrentValue()
                 if (currentValue < MAX_VALUE) {
                     binding.currentValue.setText((currentValue + 1).toString())
-                    disableButtonIfNeeded(currentValue + 1)
+                    disableButtonsIfNeeded(currentValue + 1)
                     adjustTextSize(currentValue + 1)
                 }
             },
@@ -87,13 +87,19 @@ class CounterActivity : AppCompatActivity() {
         )
     }
 
-    private fun disableButtonIfNeeded(currentValue: Int) {
-        when (currentValue) {
-            MAX_VALUE -> binding.plusButton.isEnabled = false
-            MIN_VALUE -> binding.minusButton.isEnabled = false
-            else -> {
-                binding.plusButton.isEnabled = true
-                binding.minusButton.isEnabled = true
+    private fun disableButtonsIfNeeded(currentValue: Int) {
+        if (intent.getBooleanExtra(AUTOINCREMENT, false)) {
+            binding.plusButton.isEnabled = false
+            binding.minusButton.isEnabled = false
+            binding.resetButton.isEnabled = false
+        } else {
+            when (currentValue) {
+                MAX_VALUE -> binding.plusButton.isEnabled = false
+                MIN_VALUE -> binding.minusButton.isEnabled = false
+                else -> {
+                    binding.plusButton.isEnabled = true
+                    binding.minusButton.isEnabled = true
+                }
             }
         }
     }
@@ -129,20 +135,20 @@ class CounterActivity : AppCompatActivity() {
     private fun incrementValue() {
         val currentValue = getCurrentValue()
         binding.currentValue.setText((currentValue + 1).toString())
-        disableButtonIfNeeded(currentValue + 1)
+        disableButtonsIfNeeded(currentValue + 1)
         adjustTextSize(currentValue + 1)
     }
 
     private fun decrementValue() {
         val currentValue = getCurrentValue()
         binding.currentValue.setText((currentValue - 1).toString())
-        disableButtonIfNeeded(currentValue - 1)
+        disableButtonsIfNeeded(currentValue - 1)
         adjustTextSize(currentValue - 1)
     }
 
     private fun resetValue() {
         binding.currentValue.setText(getString(R.string.one))
-        disableButtonIfNeeded(1)
+        disableButtonsIfNeeded(1)
         adjustTextSize(1)
     }
 
@@ -166,6 +172,7 @@ class CounterActivity : AppCompatActivity() {
         private const val QUESTION_ID = "question_id"
         private const val QUESTION_NAME = "question_name"
         private const val INCREMENT = "increment"
+        private const val AUTOINCREMENT = "autoincrement"
         private const val VALUE = "value"
     }
 }

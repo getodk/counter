@@ -14,27 +14,38 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<!-- default -->
-<item
-    android:state_pressed="false"
-    android:state_focused="false">
-    <shape>
-        <solid android:color="#E8E8E8"/>
-        <stroke
-            android:width="2dp"
-            android:color="@android:color/black"/>
-    </shape>
-</item>
+    <!-- button disabled -->
+    <item
+        android:state_enabled="false">
+        <shape>
+            <solid android:color="#D3D3D3"/>
+            <stroke
+                android:width="2dp"
+                android:color="@android:color/black"/>
+        </shape>
+    </item>
 
-<!-- button pressed -->
-<item
-    android:state_pressed="true"
-    android:state_focused="false">
-    <shape>
-        <solid android:color="#D3D3D3"/>
-        <stroke
-            android:width="2dp"
-            android:color="@android:color/black"/>
-    </shape>
-</item>
+    <!-- button pressed -->
+    <item
+        android:state_pressed="true"
+        android:state_focused="false">
+        <shape>
+            <solid android:color="#D3D3D3"/>
+            <stroke
+                android:width="2dp"
+                android:color="@android:color/black"/>
+        </shape>
+    </item>
+
+    <!-- default -->
+    <item
+        android:state_pressed="false"
+        android:state_focused="false">
+        <shape>
+            <solid android:color="#E8E8E8"/>
+            <stroke
+                android:width="2dp"
+                android:color="@android:color/black"/>
+        </shape>
+    </item>
 </selector>
