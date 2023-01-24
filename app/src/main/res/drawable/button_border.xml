@@ -18,7 +18,7 @@ limitations under the License.
     <item
         android:state_enabled="false">
         <shape>
-            <solid android:color="#D3D3D3"/>
+            <solid android:color="#A3A3A3"/>
             <stroke
                 android:width="2dp"
                 android:color="@android:color/black"/>
