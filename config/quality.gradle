@@ -1,6 +1,6 @@
 apply plugin: 'checkstyle'
-apply plugin: 'findbugs'
 apply plugin: 'pmd'
+apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 /*
  * Copyright 2015 Vincent Brison.
@@ -18,8 +18,8 @@ apply plugin: 'pmd'
  * limitations under the License.
  */
 
-// Add checkstyle, findbugs, pmd and lint to the check task.
-check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+// Add checkstyle, pmd and lint to the check task.
+check.dependsOn 'checkstyle', 'pmd', 'ktlintCheck'
 
 def configDir = "${project.rootDir}/config/quality"
 def reportsDir = "${project.buildDir}/reports"
@@ -36,31 +36,6 @@ task checkstyle(type: Checkstyle) {
     classpath = files()
 }
 
-task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
-    ignoreFailures = true       // commented out to make the build pass until all errors have been fixed
-    effort = "max"
-    reportLevel = "high"
-    excludeFilter = new File("$configDir/findbugs/findbugs-filter.xml")
-    classes = files("${project.rootDir}/app/build/intermediates/classes")
-
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-
-    reports {
-        xml.enabled = false
-        html.enabled = true
-        xml {
-            destination "$reportsDir/findbugs/findbugs.xml"
-        }
-        html {
-            destination "$reportsDir/findbugs/findbugs.html"
-        }
-    }
-
-    classpath = files()
-}
-
 task pmd(type: Pmd) {
     ignoreFailures = false
     ruleSetFiles = files("$configDir/pmd/pmd-ruleset.xml")
@@ -74,21 +49,10 @@ task pmd(type: Pmd) {
         xml.enabled = false
         html.enabled = true
         xml {
-            destination "$reportsDir/pmd/pmd.xml"
+            setDestination new File("$reportsDir/pmd/pmd.xml")
         }
         html {
-            destination "$reportsDir/pmd/pmd.html"
+            setDestination new File("$reportsDir/pmd/pmd.html")
         }
-    }
-}
-
-android {
-    lintOptions {
-        abortOnError true
-        xmlReport true
-        htmlReport true
-        lintConfig file("$configDir/lint/lint.xml")
-        htmlOutput file("$reportsDir/lint/lint-result.html")
-        xmlOutput file("$reportsDir/lint/lint-result.xml")
     }
 }

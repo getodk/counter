@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply from: '../config/quality.gradle'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 import com.android.ddmlib.DdmPreferences
 DdmPreferences.setTimeOut(60000)
@@ -60,13 +61,12 @@ if (secretsFile.exists()) {
 }
 
 android {
-    compileSdkVersion(25)
-    buildToolsVersion('26.0.1')
+    compileSdkVersion(33)
 
     defaultConfig {
         applicationId('org.opendatakit.counter')
         minSdkVersion(16)
-        targetSdkVersion(22)
+        targetSdkVersion(33)
         versionCode getMasterCommitCount()
         versionName getVersionName()
         testInstrumentationRunner('android.support.test.runner.AndroidJUnitRunner')
@@ -101,15 +101,13 @@ android {
 
     // https://stackoverflow.com/a/27119543/152938
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def file = output.outputFile
-            output.outputFile = new File(file.parent, file.name.replace("app","counter").replace(".apk", "-" + defaultConfig.versionName + ".apk"))
+        variant.outputs.all { output ->
+            outputFileName = new File(outputFileName.replace(".apk", "-${defaultConfig.versionName}.apk"))
         }
     }
 
     packagingOptions {
-        // Pick first occurrence of any files that cause conflicts, as defined
-        // in common.gradle
+        // Pick first occurrence of any files that cause conflicts, as defined in common.gradle
         pickFirst 'META-INF/DEPENDENCIES'
         pickFirst 'META-INF/LICENSE'
         pickFirst 'META-INF/LICENSE.txt'
@@ -118,12 +116,16 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     dexOptions {
         javaMaxHeapSize '2048M'
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -142,10 +144,8 @@ allprojects {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 }
