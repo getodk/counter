@@ -76,7 +76,7 @@ limitations under the License.
                 android:textSize="40sp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:background="@drawable/button_border"/>
+                android:background="@drawable/button_background"/>
 
             <Button
                 android:id="@+id/plus_button"
@@ -87,7 +87,7 @@ limitations under the License.
                 android:textSize="40sp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:background="@drawable/button_border"/>
+                android:background="@drawable/button_background"/>
 
             <ImageButton
                 android:id="@+id/reset_button"
@@ -97,7 +97,7 @@ limitations under the License.
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:src="@drawable/ic_reset"
-                android:background="@drawable/button_border"/>
+                android:background="@drawable/button_background"/>
 
         </LinearLayout>
 
@@ -110,6 +110,6 @@ limitations under the License.
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_done"
-            android:background="@drawable/button_border" />
+            android:background="@drawable/button_background" />
     </LinearLayout>
 </LinearLayout>
