@@ -1,0 +1,39 @@
+name: Android Build Pipeline
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Setup Environment and build
+    runs-on: self-hosted
+    steps:
+      - name: Checkout the code to specific branch
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Compile code
+        run: ./gradlew assembleDebug
+
+      - name: Run Kotlin Linter
+        run: ./gradlew ktlintCheck
+
+      - name: Run PMD
+        run: ./gradlew pmd
+
+      - name: Run Checkstyle
+        run: ./gradlew checkstyle
