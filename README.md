@@ -82,9 +82,6 @@ Our regular code contributors use these devices (ordered by Android version):
 * [Samsung Galaxy Tab SM-T285](http://www.gsmarena.com/samsung_galaxy_tab_a_7_0_(2016)-7880.php) - Android 5.1.1
 * [Motorola G4 4th Gen XT1625](http://www.gsmarena.com/motorola_moto_g4-8103.php) - Android 7.0
 
-## Downloading builds
-Per-commit debug builds can be found on [CircleCI](https://circleci.com/gh/opendatakit/counter). Login with your GitHub account, click the build you'd like, then find the APK in the Artifacts tab.
-
 ## Creating signed releases for Google Play Store
 Project maintainers have the keys to upload signed releases to the Play Store. 
 
