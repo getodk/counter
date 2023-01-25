@@ -120,10 +120,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dexOptions {
-        javaMaxHeapSize '2048M'
-    }
-
     buildFeatures {
         viewBinding true
     }

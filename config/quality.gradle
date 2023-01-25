@@ -46,8 +46,8 @@ task pmd(type: Pmd) {
     exclude '**/gen/**'
 
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.required = false
+        html.required = true
         xml {
             setDestination new File("$reportsDir/pmd/pmd.xml")
         }
