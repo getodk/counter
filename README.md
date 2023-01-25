@@ -2,16 +2,12 @@
 
 ![Platform](https://img.shields.io/badge/platform-Android-blue.svg)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Build status](https://circleci.com/gh/opendatakit/counter.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/opendatakit/counter)
-[![Slack status](http://slack.opendatakit.org/badge.svg)](http://slack.opendatakit.org)
 
 This app is intended to be used from ODK Collect as a counter.
 
-* ODK website: [https://opendatakit.org](https://opendatakit.org)
-* ODK forum: [https://forum.opendatakit.org](https://forum.opendatakit.org)
-* ODK developer Slack chat: [http://slack.opendatakit.org](http://slack.opendatakit.org) 
-* ODK developer Slack archive: [http://opendatakit.slackarchive.io](http://opendatakit.slackarchive.io) 
-* ODK developer wiki: [https://github.com/opendatakit/opendatakit/wiki](https://github.com/opendatakit/opendatakit/wiki)
+* ODK website: [https://getodk.org](https://getodk.org)
+* ODK forum: [https://forum.getodk.org](https://forum.getodk.org)
+* ODK developer Slack chat: [http://slack.getodk.org](http://slack.getodk.org) 
 
 ## Usage
 
