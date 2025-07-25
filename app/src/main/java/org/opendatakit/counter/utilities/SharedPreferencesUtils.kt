@@ -21,7 +21,11 @@ import org.opendatakit.counter.activities.CounterActivity
 
 object SharedPreferencesUtils {
     @JvmStatic
-    fun saveValue(context: Context, key: String, value: Int) {
+    fun saveValue(
+        context: Context,
+        key: String,
+        value: Int,
+    ) {
         try {
             PreferenceManager
                 .getDefaultSharedPreferences(context)
@@ -35,11 +39,13 @@ object SharedPreferencesUtils {
     }
 
     @JvmStatic
-    fun getValue(context: Context, key: String): Int {
-        return PreferenceManager
+    fun getValue(
+        context: Context,
+        key: String,
+    ): Int =
+        PreferenceManager
             .getDefaultSharedPreferences(context)
             .getInt(key, CounterActivity.SHARED_PREFS_DEFAULT_VALUE)
-    }
 
     private fun clearSharedPreferences(context: Context) {
         PreferenceManager

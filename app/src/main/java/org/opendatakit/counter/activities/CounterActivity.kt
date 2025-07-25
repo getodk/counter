@@ -83,7 +83,7 @@ class CounterActivity : AppCompatActivity() {
                     adjustTextSize(currentValue + 1)
                 }
             },
-            650
+            650,
         )
     }
 
